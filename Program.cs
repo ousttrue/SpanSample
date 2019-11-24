@@ -112,6 +112,27 @@ namespace SpanSample
             SampleImport.SAMPLE_Destroy(p);
         }
 
+        static void WritebackCast()
+        {
+            var p = SampleImport.SAMPLE_Create();
+            unsafe
+            {
+                var pd = (Dummy*)p;
+                *pd = new Dummy
+                {
+                    Index = 10,
+                    Value = new Vector3
+                    {
+                        X = 1,
+                        Y = 2,
+                        Z = -3,
+                    },
+                };
+            }
+            SampleImport.SAMPLE_Print(p);
+            SampleImport.SAMPLE_Destroy(p);
+        }
+
         static void Main(string[] args)
         {
             ArraySample();
@@ -120,6 +141,7 @@ namespace SpanSample
 
             WritebackSample();
             WritebackStack();
+            WritebackCast();
         }
     }
 }
